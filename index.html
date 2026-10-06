@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#5c0a12">
+  <meta name="description" content="Decora Momentos — decoración de eventos para cumpleaños, aniversarios, momentos especiales y eventos formales.">
+  <meta property="og:title" content="Decora Momentos | Decoración de eventos">
+  <meta property="og:description" content="Creamos momentos que merecen ser recordados.">
+  <title>Decora Momentos | Decoración de eventos</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --burgundy:#5c0a12;
+      --burgundy-2:#7b1722;
+      --cream:#fbf5eb;
+      --cream-2:#fffaf3;
+      --gold:#b88a3b;
+      --gold-light:#dfbd78;
+      --champagne:#e8c7b9;
+      --rose:#c88d88;
+      --text:#3d2222;
+      --muted:#806c67;
+      --white:#fff;
+      --shadow:0 18px 50px rgba(71,22,25,.12);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      background:var(--cream);
+      font-family:"DM Sans",sans-serif;
+      overflow-x:hidden;
+    }
+
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+
+    /* Decorative background */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-2;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(232,199,185,.30), transparent 25%),
+        radial-gradient(circle at 88% 62%, rgba(184,138,59,.12), transparent 28%);
+    }
+
+    .sparkles{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .sparkles span{
+      position:absolute;
+      width:5px;height:5px;
+      border-radius:50%;
+      background:#fff;
+      box-shadow:0 0 15px rgba(255,255,255,.95);
+      animation:float 5s ease-in-out infinite;
+      opacity:.65;
+    }
+    .sparkles span:nth-child(1){left:12%;top:25%;animation-delay:.2s}
+    .sparkles span:nth-child(2){left:76%;top:22%;animation-delay:1.3s}
+    .sparkles span:nth-child(3){left:87%;top:65%;animation-delay:2.2s}
+    .sparkles span:nth-child(4){left:28%;top:70%;animation-delay:3s}
+    .sparkles span:nth-child(5){left:61%;top:38%;animation-delay:1s}
+    @keyframes float{
+      0%,100%{transform:translateY(0) scale(.8);opacity:.25}
+      50%{transform:translateY(-14px) scale(1.3);opacity:.9}
+    }
+
+    /* Navigation */
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:50;
+      height:68px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:0 28px;
+      background:rgba(72,7,14,.96);
+      border-bottom:1px solid rgba(223,189,120,.35);
+      box-shadow:0 8px 25px rgba(49,5,10,.16);
+    }
+    .nav-inner{
+      width:min(1180px,100%);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+    .mini-logo{
+      width:42px;height:42px;
+      border-radius:50%;
+      overflow:hidden;
+      border:1px solid var(--gold-light);
+      background:#fff;
+      flex:0 0 auto;
+    }
+    .mini-logo img{width:100%;height:100%;object-fit:cover}
+    .nav-links{display:flex;gap:30px;align-items:center}
+    .nav-links a{
+      color:#fff8ed;
+      font-family:Georgia,serif;
+      font-size:15px;
+      opacity:.9;
+      position:relative;
+      padding:24px 0;
+    }
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;right:0;bottom:16px;
+      height:1px;background:var(--gold-light);
+      transform:scaleX(0);
+      transition:.3s;
+    }
+    .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+    .socials{display:flex;gap:12px;color:#fff8ed;font-size:14px}
+    .socials a{opacity:.9;transition:.25s}
+    .socials a:hover{color:var(--gold-light);transform:translateY(-2px)}
+
+    /* Hero */
+    .hero{
+      min-height:620px;
+      position:relative;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      background:
+        linear-gradient(90deg, rgba(91,10,18,.94) 0%, rgba(91,10,18,.72) 38%, rgba(91,10,18,.18) 75%),
+        radial-gradient(circle at 80% 50%, #d8b59b, #7a3030 60%, #4c0910);
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      left:-5%;right:-5%;bottom:-48px;
+      height:100px;
+      background:var(--cream);
+      border-radius:50% 50% 0 0;
+      z-index:2;
+    }
+    .hero-content{
+      width:min(1180px,92%);
+      display:grid;
+      grid-template-columns:420px 1fr;
+      align-items:center;
+      gap:65px;
+      position:relative;
+      z-index:3;
+      padding:70px 0 95px;
+    }
+
+    /* Animated circular logo */
+    .logo-stage{
+      width:390px;
+      aspect-ratio:1;
+      position:relative;
+      margin:auto;
+      filter:drop-shadow(0 20px 35px rgba(0,0,0,.20));
+    }
+    .logo-ring{
+      position:absolute;
+      inset:-8px;
+      border-radius:50%;
+      border:1px solid rgba(223,189,120,.9);
+      box-shadow:
+        0 0 0 5px rgba(255,255,255,.12),
+        0 0 40px rgba(223,189,120,.22);
+      animation:ringPulse 4s ease-in-out infinite;
+    }
+    @keyframes ringPulse{
+      0%,100%{box-shadow:0 0 0 5px rgba(255,255,255,.12),0 0 30px rgba(223,189,120,.12)}
+      50%{box-shadow:0 0 0 8px rgba(255,255,255,.18),0 0 48px rgba(223,189,120,.28)}
+    }
+    .logo{
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+      border-radius:50%;
+      background:#fff;
+      border:7px solid rgba(255,255,255,.82);
+    }
+    .logo img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      opacity:0;
+      transform:scale(1.015);
+      animation:logoFade 16s infinite;
+    }
+    .logo img:nth-child(1){animation-delay:0s}
+    .logo img:nth-child(2){animation-delay:4s}
+    .logo img:nth-child(3){animation-delay:8s}
+    .logo img:nth-child(4){animation-delay:12s}
+    @keyframes logoFade{
+      0%,20%{opacity:1}
+      25%,95%{opacity:0}
+      100%{opacity:1}
+    }
+
+    .hero-copy{color:#fff8ef;max-width:610px}
+    .eyebrow{
+      display:flex;align-items:center;gap:12px;
+      color:var(--gold-light);
+      letter-spacing:4px;
+      text-transform:uppercase;
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:15px;
+    }
+    .eyebrow::before,.eyebrow::after{
+      content:"";width:42px;height:1px;background:var(--gold-light);
+    }
+    .hero h1{
+      margin:0;
+      font-family:"Fraunces",Georgia,serif;
+      font-size:clamp(48px,7vw,82px);
+      line-height:.92;
+      font-weight:600;
+      letter-spacing:-2px;
+    }
+    .hero h1 span{
+      display:block;
+      font-family:"Great Vibes",cursive;
+      color:#e9c48b;
+      font-size:.72em;
+      margin-left:45px;
+      margin-top:8px;
+      letter-spacing:0;
+    }
+    .hero p{
+      max-width:520px;
+      font-family:Georgia,serif;
+      font-size:21px;
+      line-height:1.6;
+      color:#fff4e8;
+      margin:26px 0 0;
+    }
+    .hero-divider{
+      width:145px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);
+      margin-top:30px;
+    }
+
+    /* Sections */
+    section{padding:88px 0}
+    .section-inner{width:min(1180px,92%);margin:auto}
+    .section-title{text-align:center;margin-bottom:40px}
+    .section-title .small{
+      text-transform:uppercase;
+      letter-spacing:4px;
+      color:var(--gold);
+      font-size:11px;
+      font-weight:700;
+    }
+    .section-title h2{
+      margin:10px 0 8px;
+      font-family:"Fraunces",Georgia,serif;
+      font-size:clamp(34px,5vw,52px);
+      font-weight:600;
+      color:var(--burgundy);
+    }
+    .section-title p{
+      margin:auto;
+      max-width:600px;
+      color:var(--muted);
+    }
+
+    /* Event cards */
+    .events{background:var(--cream)}
+    .event-grid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:16px;
+    }
+    .event-card{
+      min-height:300px;
+      position:relative;
+      overflow:hidden;
+      border-radius:18px;
+      background:linear-gradient(180deg,#d9b7a6,#6c1820);
+      box-shadow:var(--shadow);
+      transition:.45s cubic-bezier(.2,.7,.2,1);
+      isolation:isolate;
+    }
+    .event-card::before{
+      content:"";
+      position:absolute;inset:0;
+      background:
+        radial-gradient(circle at 25% 20%,rgba(255,255,255,.45),transparent 18%),
+        linear-gradient(180deg,transparent 35%,rgba(64,7,13,.85) 100%);
+      z-index:1;
+    }
+    .event-card::after{
+      content:"✦";
+      position:absolute;
+      top:15px;right:16px;
+      color:#f7dfb1;
+      z-index:2;
+      opacity:.85;
+    }
+    .event-card .fake-photo{
+      position:absolute;inset:0;
+      background:
+        radial-gradient(circle at 30% 25%,#fff1d8 0 7%,transparent 8%),
+        radial-gradient(circle at 72% 23%,#e7b7a7 0 8%,transparent 9%),
+        radial-gradient(circle at 56% 35%,#b88a3b 0 5%,transparent 6%),
+        linear-gradient(145deg,#f2d3c4,#9d4d51 45%,#53101a);
+      transform:scale(1);
+      transition:.6s;
+      z-index:0;
+    }
+    .event-card:nth-child(2) .fake-photo{filter:hue-rotate(18deg)}
+    .event-card:nth-child(3) .fake-photo{filter:hue-rotate(-8deg)}
+    .event-card:nth-child(4) .fake-photo{filter:grayscale(.15) brightness(.9)}
+    .event-card:nth-child(5) .fake-photo{filter:hue-rotate(32deg)}
+    .event-card:hover{transform:translateY(-10px)}
+    .event-card:hover .fake-photo{transform:scale(1.08)}
+    .event-info{
+      position:absolute;left:18px;right:18px;bottom:20px;
+      z-index:3;color:#fff;text-align:center;
+    }
+    .event-icon{font-size:24px;color:#f1d39a;margin-bottom:8px}
+    .event-info h3{
+      margin:0;
+      font-family:"Fraunces",Georgia,serif;
+      font-size:21px;
+      font-weight:600;
+    }
+    .event-info p{margin:6px 0 0;font-size:12px;opacity:.82}
+
+    /* About */
+    .about{
+      position:relative;
+      background:
+        linear-gradient(90deg,rgba(255,250,243,.97),rgba(255,250,243,.91)),
+        radial-gradient(circle at 15% 50%,#e4b7a9,#fffaf3 42%);
+      overflow:hidden;
+    }
+    .about-grid{
+      display:grid;
+      grid-template-columns:1fr 1.2fr;
+      gap:70px;
+      align-items:center;
+    }
+    .about-copy .small{
+      text-transform:uppercase;
+      letter-spacing:4px;
+      color:var(--gold);
+      font-size:11px;
+      font-weight:700;
+    }
+    .about-copy h2{
+      font-family:"Fraunces",Georgia,serif;
+      color:var(--burgundy);
+      font-size:clamp(34px,4vw,52px);
+      line-height:1;
+      margin:13px 0 12px;
+    }
+    .script{
+      font-family:"Great Vibes",cursive;
+      color:#a36d4b;
+      font-size:1.05em;
+      font-weight:400;
+    }
+    .about-copy p{
+      color:var(--muted);
+      line-height:1.8;
+      max-width:530px;
+    }
+    .about-line{
+      width:170px;height:1px;
+      margin-top:25px;
+      background:linear-gradient(90deg,var(--gold),transparent);
+    }
+    .features{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+    }
+    .feature{
+      text-align:center;
+      padding:25px 12px;
+      border-left:1px solid rgba(184,138,59,.25);
+    }
+    .feature:first-child{border-left:0}
+    .feature-icon{
+      width:58px;height:58px;
+      margin:auto;
+      display:grid;place-items:center;
+      border:1px solid rgba(184,138,59,.55);
+      border-radius:50%;
+      color:var(--gold);
+      font-size:22px;
+      background:rgba(255,255,255,.55);
+    }
+    .feature h3{
+      font-family:"Fraunces",Georgia,serif;
+      color:var(--burgundy);
+      font-size:15px;
+      margin:13px 0 5px;
+    }
+    .feature p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+
+    /* Gallery */
+    .gallery{background:#fffaf4}
+    .gallery-grid{
+      columns:3 280px;
+      column-gap:18px;
+    }
+    .gallery-item{
+      break-inside:avoid;
+      margin:0 0 18px;
+      min-height:180px;
+      border-radius:18px;
+      overflow:hidden;
+      position:relative;
+      background:linear-gradient(135deg,#e8c7b9,#7b1722);
+      box-shadow:0 12px 35px rgba(77,20,24,.09);
+    }
+    .gallery-item::before{
+      content:"";
+      display:block;
+      padding-top:72%;
+    }
+    .gallery-item:nth-child(2)::before{padding-top:110%}
+    .gallery-item:nth-child(4)::before{padding-top:88%}
+    .gallery-item:nth-child(5)::before{padding-top:62%}
+    .gallery-photo{
+      position:absolute;inset:0;
+      background:
+        radial-gradient(circle at 24% 28%,rgba(255,255,255,.75) 0 6%,transparent 7%),
+        radial-gradient(circle at 70% 30%,rgba(255,216,195,.85) 0 8%,transparent 9%),
+        radial-gradient(circle at 52% 60%,rgba(184,138,59,.85) 0 7%,transparent 8%),
+        linear-gradient(145deg,#f4ddd0,#b96767 50%,#63111b);
+      transition:.5s;
+    }
+    .gallery-item:hover .gallery-photo{transform:scale(1.07)}
+    .gallery-label{
+      position:absolute;left:16px;bottom:14px;
+      color:#fff;
+      font-family:"Fraunces",Georgia,serif;
+      font-size:18px;
+      text-shadow:0 2px 12px rgba(0,0,0,.35);
+    }
+
+    /* Quote */
+    .quote{
+      padding:90px 20px;
+      background:
+        linear-gradient(90deg,rgba(80,7,14,.96),rgba(111,17,28,.90)),
+        radial-gradient(circle at 70% 40%,#c88d88,#5c0a12);
+      text-align:center;
+      color:#fff;
+      position:relative;
+      overflow:hidden;
+    }
+    .quote::before,.quote::after{
+      content:"❧";
+      position:absolute;
+      color:rgba(223,189,120,.25);
+      font-size:120px;
+    }
+    .quote::before{left:4%;top:8px}
+    .quote::after{right:4%;bottom:-20px;transform:rotate(180deg)}
+    .quote p{
+      font-family:"Great Vibes",cursive;
+      font-size:clamp(36px,6vw,66px);
+      line-height:1.1;
+      margin:0 auto 12px;
+      color:#f2d39d;
+      max-width:850px;
+    }
+    .quote span{
+      text-transform:uppercase;
+      letter-spacing:4px;
+      font-size:10px;
+      opacity:.8;
+    }
+
+    /* Footer */
+    footer{
+      background:#43060d;
+      color:#fff4e6;
+      border-top:1px solid rgba(223,189,120,.4);
+      padding:42px 0 25px;
+    }
+    .footer-grid{
+      width:min(1180px,92%);
+      margin:auto;
+      display:grid;
+      grid-template-columns:1.5fr 1fr 1fr;
+      gap:30px;
+      align-items:center;
+    }
+    .footer-brand{
+      font-family:"Fraunces",Georgia,serif;
+      font-size:24px;
+    }
+    .footer-brand span{
+      display:block;
+      color:var(--gold-light);
+      font-family:"DM Sans",sans-serif;
+      font-size:9px;
+      letter-spacing:4px;
+      margin-top:4px;
+    }
+    .footer-col{color:#ead9cf;font-size:13px;line-height:1.7}
+    .footer-col strong{color:#f0d19b}
+    .footer-bottom{
+      width:min(1180px,92%);
+      margin:28px auto 0;
+      padding-top:18px;
+      border-top:1px solid rgba(223,189,120,.25);
+      text-align:center;
+      font-size:11px;
+      color:#c8aaa2;
+    }
+
+    /* Reveal animation */
+    .reveal{
+      opacity:0;
+      transform:translateY(30px);
+      transition:opacity .8s ease,transform .8s ease;
+    }
+    .reveal.visible{opacity:1;transform:none}
+
+    @media (max-width:900px){
+      .nav-links{gap:17px}
+      .socials{display:none}
+      .hero-content{grid-template-columns:1fr;gap:25px;text-align:center;padding-top:55px}
+      .logo-stage{width:min(330px,78vw)}
+      .eyebrow{justify-content:center}
+      .hero p{margin-left:auto;margin-right:auto}
+      .hero-divider{margin-left:auto;margin-right:auto}
+      .hero h1 span{margin-left:0}
+      .event-grid{grid-template-columns:repeat(2,1fr)}
+      .about-grid{grid-template-columns:1fr}
+      .features{grid-template-columns:repeat(2,1fr)}
+      .feature:nth-child(3){border-left:0}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+
+    @media (max-width:600px){
+      .nav{height:60px;padding:0 14px}
+      .nav-links{gap:15px}
+      .nav-links a{font-size:12px;padding:21px 0}
+      .nav-links a:nth-child(2),.nav-links a:nth-child(4){display:none}
+      .mini-logo{width:37px;height:37px}
+      .hero{min-height:680px}
+      .hero-content{padding-top:45px}
+      .hero h1{font-size:48px}
+      .hero p{font-size:17px}
+      section{padding:68px 0}
+      .event-grid{grid-template-columns:1fr 1fr;gap:11px}
+      .event-card{min-height:240px;border-radius:14px}
+      .event-info h3{font-size:17px}
+      .gallery-grid{columns:2 150px;column-gap:10px}
+      .gallery-item{margin-bottom:10px;border-radius:12px}
+      .features{gap:0}
+      .feature{padding:20px 7px}
+      .footer-grid{grid-template-columns:1fr;text-align:center}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="mini-logo" href="#inicio" aria-label="Decora Momentos">
+        <img src="images/logo-dorado.jpg" alt="Logo Decora Momentos">
+      </a>
+
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a class="active" href="#inicio">Inicio</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#galeria">Galería</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="socials" aria-label="Redes sociales">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">◎</a>
+        <a href="#" aria-label="TikTok">♪</a>
+        <a href="#" aria-label="WhatsApp">◔</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="sparkles" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="hero-content">
+        <div class="logo-stage reveal">
+          <div class="logo-ring"></div>
+          <div class="logo">
+            <img src="images/logo-dorado.jpg" alt="Decora Momentos dorado">
+            <img src="images/logo-rosa.jpg" alt="Decora Momentos rosa">
+            <img src="images/logo-morado.jpg" alt="Decora Momentos morado">
+            <img src="images/logo-azul.jpg" alt="Decora Momentos azul">
+          </div>
+        </div>
+
+        <div class="hero-copy reveal">
+          <div class="eyebrow">Decoración de eventos</div>
+          <h1>DECORA <span>Momentos</span></h1>
+          <p>Creemos que cada celebración merece convertirse en un recuerdo especial.</p>
+          <div class="hero-divider"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="events" id="eventos">
+      <div class="section-inner">
+        <div class="section-title reveal">
+          <div class="small">Celebraciones que inspiran</div>
+          <h2>Nuestros eventos</h2>
+          <p>Una primera mirada a los momentos que podemos convertir en algo inolvidable.</p>
+        </div>
+
+        <div class="event-grid">
+          <article class="event-card reveal">
+            <div class="fake-photo"></div>
+            <div class="event-info">
+              <div class="event-icon">♛</div>
+              <h3>Cumpleaños</h3>
+              <p>Detalles para celebrar a lo grande.</p>
+            </div>
+          </article>
+
+          <article class="event-card reveal">
+            <div class="fake-photo"></div>
+            <div class="event-info">
+              <div class="event-icon">♡</div>
+              <h3>Aniversarios</h3>
+              <p>Momentos para recordar juntos.</p>
+            </div>
+          </article>
+
+          <article class="event-card reveal">
+            <div class="fake-photo"></div>
+            <div class="event-info">
+              <div class="event-icon">✦</div>
+              <h3>Momentos especiales</h3>
+              <p>Decoración con significado.</p>
+            </div>
+          </article>
+
+          <article class="event-card reveal">
+            <div class="fake-photo"></div>
+            <div class="event-info">
+              <div class="event-icon">♜</div>
+              <h3>Eventos formales</h3>
+              <p>Elegancia en cada detalle.</p>
+            </div>
+          </article>
+
+          <article class="event-card reveal">
+            <div class="fake-photo"></div>
+            <div class="event-info">
+              <div class="event-icon">✧</div>
+              <h3>Celebraciones</h3>
+              <p>Diseños pensados para tu ocasión.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="nosotros">
+      <div class="section-inner about-grid">
+        <div class="about-copy reveal">
+          <div class="small">Sobre nosotros</div>
+          <h2>Más que decoración,<br><span class="script">creamos emociones.</span></h2>
+          <p>
+            En Decora Momentos buscamos transformar cada celebración en una experiencia
+            especial, cuidando la armonía, los detalles y la esencia de cada ocasión.
+          </p>
+          <div class="about-line"></div>
+        </div>
+
+        <div class="features reveal">
+          <div class="feature">
+            <div class="feature-icon">◇</div>
+            <h3>Diseños personalizados</h3>
+            <p>Cada evento puede tener su propia esencia.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">♡</div>
+            <h3>Atención cercana</h3>
+            <p>Acompañamiento durante el proceso.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">✦</div>
+            <h3>Calidad en cada detalle</h3>
+            <p>Cuidamos la presentación y el acabado.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">▣</div>
+            <h3>Experiencia</h3>
+            <p>Para diferentes tipos de celebraciones.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery" id="galeria">
+      <div class="section-inner">
+        <div class="section-title reveal">
+          <div class="small">Inspiración</div>
+          <h2>Momentos que hablan por sí solos</h2>
+          <p>Estas imágenes son espacios reservados para las fotografías reales de tus decoraciones.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <article class="gallery-item reveal"><div class="gallery-photo"></div><div class="gallery-label">Cumpleaños</div></article>
+          <article class="gallery-item reveal"><div class="gallery-photo"></div><div class="gallery-label">Aniversarios</div></article>
+          <article class="gallery-item reveal"><div class="gallery-photo"></div><div class="gallery-label">Momentos especiales</div></article>
+          <article class="gallery-item reveal"><div class="gallery-photo"></div><div class="gallery-label">Eventos formales</div></article>
+          <article class="gallery-item reveal"><div class="gallery-photo"></div><div class="gallery-label">Celebraciones</div></article>
+          <article class="gallery-item reveal"><div class="gallery-photo"></div><div class="gallery-label">Detalles</div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote">
+      <p>“Cada evento tiene una historia. Nosotros ayudamos a vestirla de momentos.”</p>
+      <span>Decora Momentos</span>
+    </section>
+  </main>
+
+  <footer id="contacto">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        DECORA MOMENTOS
+        <span>DECORACIÓN DE EVENTOS</span>
+      </div>
+      <div class="footer-col">
+        <strong>Atención</strong><br>
+        El Alto y La Paz
+      </div>
+      <div class="footer-col">
+        <strong>Contacto</strong><br>
+        WhatsApp · Instagram · Facebook
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Decora Momentos · Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <script>
+    // Animaciones de aparición al hacer scroll.
+    const revealItems = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealItems.forEach(item => observer.observe(item));
+  </script>
+</body>
+</html>
